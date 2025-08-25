@@ -1,4 +1,3 @@
-import Image from "next/image";
 import prisma from './utils/db'
 import { BlogpostCard } from "@/components/general/BlogpostCard";
 import { Suspense } from "react";

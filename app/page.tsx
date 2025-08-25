@@ -18,7 +18,7 @@ async function getData() {
       createdAt: true,
       updatedAt: true,
     }
-})
+});
    return data;
 }
 

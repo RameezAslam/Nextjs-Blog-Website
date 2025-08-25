@@ -20,23 +20,28 @@ async function getData(userId: string) {
 export default async function DashboardRoute() {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
+    
+    if (!user?.id) {
+        // Optionally redirect or return empty UI
+        return <div>You must be logged in to view this page.</div>;
+    }
     const data = await getData(user.id);
 
  return (    
-        <div>
-            <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-medium"> Your Blog Articles </h2>
+    <div>
+        <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-medium"> Your Blog Articles </h2>
 
-                <Link href="/dashboard/create"
-                 className={buttonVariants()}>
-                    Create Post
-                </Link>
-            </div>
-             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {data.map((item) => (
-                        <BlogpostCard data={item} key={item.id} />
-                    ))}
-                </div>
+            <Link href="/dashboard/create"
+                className={buttonVariants()}>
+                Create Post
+            </Link>
         </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {data.map((item) => (
+                <BlogpostCard data={item} key={item.id} />
+            ))}
+        </div>
+    </div>
     )
 }
